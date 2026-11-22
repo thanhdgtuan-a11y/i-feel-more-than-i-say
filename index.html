@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>I FEEL MORE THAN I SAY.</title>
+  <meta name="description" content="A participatory design publication about what young adults feel but leave unsaid — in relationships and in themselves.">
+  <meta name="theme-color" content="#FBF9F6">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23302D43'/%3E%3Ccircle cx='24' cy='32' r='12' fill='%23F4A3B5'/%3E%3Ccircle cx='40' cy='32' r='12' fill='%238F7BE0' fill-opacity='.85'/%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="I FEEL MORE THAN I SAY.">
+  <meta property="og:description" content="A participatory design publication about what young adults feel but leave unsaid — in relationships and in themselves.">
+  <meta property="og:image" content="https://thanhdgtuan-a11y.github.io/i-feel-more-than-i-say/assets/art/hero-family.png">
+  <meta property="og:url" content="https://thanhdgtuan-a11y.github.io/i-feel-more-than-i-say/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip" href="#situations">Skip to situations</a>
+
+  <div class="page">
+    <div class="glows" aria-hidden="true">
+      <i class="glow gl1"></i><i class="glow gl2"></i><i class="glow gl3"></i><i class="glow gl4"></i>
+    </div>
+
+    <header class="nav" id="nav">
+      <a class="brand" href="#top">I FEEL MORE THAN I SAY.</a>
+      <nav aria-label="Main">
+        <a href="#situations">Situations</a>
+        <a href="#shirts">Shirts</a>
+        <a href="#posters">Posters</a>
+        <a href="#about">About</a>
+      </nav>
+      <a class="btn solid nav-cta" href="#situations">Explore ↓</a>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero" aria-labelledby="title">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-text">
+          <p class="eyebrow" data-hero>Design Engagement · Final group publication</p>
+          <h1 class="title" id="title" aria-label="I feel more than I say.">
+            <span class="t1" aria-hidden="true"><span class="line grad">I FEEL</span></span>
+            <span class="t2" aria-hidden="true">more</span>
+            <span class="t3" aria-hidden="true"><span class="line"><span class="out">THAN</span> <span class="grad">I SAY.</span></span></span>
+          </h1>
+          <p class="lede" data-hero>The things we leave unsaid — read, felt, and, if you want, put into words.</p>
+          <div class="cta" data-hero>
+            <a class="btn solid" href="#situations">Explore a situation ↓</a>
+            <a class="btn" href="#about">View the project</a>
+          </div>
+        </div>
+
+        <div class="hero-cards" id="hero-cards" aria-hidden="true">
+          <img class="hc hc-fr" src="assets/art/hero-friendship.png" alt="">
+          <img class="hc hc-lo" src="assets/art/hero-love.png" alt="">
+          <img class="hc hc-fam" src="assets/art/hero-family.png" alt="">
+          <i class="hb hb1"><b></b><b></b></i>
+          <i class="hb hb2"><b></b><b></b></i>
+          <i class="hb hb3"><b></b><b></b></i>
+          <i class="hb hb4"><b></b><b></b></i>
+        </div>
+      </section>
+
+      <!-- SITUATIONS -->
+      <section class="sec sec-sit" id="situations" aria-labelledby="sit-h">
+        <header class="sec-head">
+          <h2 id="sit-h"><span class="h2-a">Four everyday situations.</span><br><em>Pick a card.</em></h2>
+          <p class="sec-sub">Each card hides a scenario. Open one, pause, then see what others left unsaid. The small bubbles are anonymous responses — hover one to read it.</p>
+        </header>
+        <div class="stack" id="stack"></div>
+      </section>
+
+      <!-- SHIRTS -->
+      <section class="sec sec-shirts" id="shirts" aria-labelledby="sh-h">
+        <header class="sec-head">
+          <h2 id="sh-h">Wear <em>the unsaid.</em></h2>
+          <p class="sec-sub">Merchandise carrying the project’s line. Not part of the research — just a way to say it out loud.</p>
+        </header>
+        <div class="shirts" id="shirt-grid"></div>
+      </section>
+
+      <!-- POSTERS -->
+      <section class="sec" id="posters" aria-labelledby="po-h">
+        <header class="sec-head">
+          <h2 id="po-h">Typography <em>poster series.</em></h2>
+          <p class="sec-sub">One poster for each situation, designed from the responses collected. Browse with the arrows or the thumbnails.</p>
+        </header>
+        <div class="sheet" id="poster-sheet">
+          <div class="viewer">
+            <button type="button" class="poster-open" id="poster-main" aria-label="Enlarge poster"></button>
+            <div class="poster-info">
+              <p class="kicker" id="poster-count"></p>
+              <h3 id="poster-title"></h3>
+              <p id="poster-caption" class="muted"></p>
+              <div class="poster-ctrl">
+                <button type="button" class="btn round" id="poster-prev" aria-label="Previous poster">‹</button>
+                <button type="button" class="btn round" id="poster-next" aria-label="Next poster">›</button>
+                <span class="muted small">Click poster to enlarge</span>
+              </div>
+              <a class="btn solid" id="poster-situation" href="#situations">Open this situation →</a>
+            </div>
+          </div>
+          <div class="thumbs" id="thumbs" role="group" aria-label="All posters"></div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="sec sec-about" id="about" aria-labelledby="ab-h">
+        <header class="sec-head">
+          <h2 id="ab-h">A publication you can read <em>without visiting the exhibition.</em></h2>
+        </header>
+        <div class="about-cols">
+          <div>
+            <h3>What is this</h3>
+            <p><b>I FEEL MORE THAN I SAY.</b> is a participatory graphic design project by a team of three design students. It gathers what young adults feel but leave unsaid in everyday situations — relationships and the self — and gives those words a place to be read.</p>
+          </div>
+          <div>
+            <h3>How the words travel</h3>
+            <ol class="steps">
+              <li><span>01</span>Paper reflection cards, four situations</li>
+              <li><span>02</span>Anonymised, with separate consent to publish</li>
+              <li><span>03</span>Transcribed, tagged and curated</li>
+              <li><span>04</span>Posters, web reveals, this archive</li>
+            </ol>
+          </div>
+          <div>
+            <h3>Status &amp; privacy</h3>
+            <p>Only consented, anonymous responses are published. Reflecting, seeing other perspectives and finding words are <i>design intentions</i> — not proven results. Sample content is always labelled.</p>
+            <p class="muted">Credits &amp; contact: to be added.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <i class="foot-o foot-o1" aria-hidden="true"></i><i class="foot-o foot-o2" aria-hidden="true"></i>
+      <p class="foot-title">I FEEL MORE<br>THAN I SAY.</p>
+      <p class="foot-sub">Design Engagement · Final group publication</p>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="lightbox" aria-label="Poster enlarged">
+    <button type="button" class="lb-close" id="lb-close" aria-label="Close">✕</button>
+    <div id="lb-body"></div>
+  </dialog>
+
+  <script src="assets/vendor/anime.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

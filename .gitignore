@@ -1,0 +1,6 @@
+.claude/
+NOTES.md
+dev-server.js
+assets/answer-card.webp
+assets/theme-self.png
+*.log
