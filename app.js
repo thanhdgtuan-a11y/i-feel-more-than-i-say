@@ -201,11 +201,25 @@
     else if (e.target.closest('.send')) {
       const ta = $('.write', st), text = ta.value.trim();
       if (!text) { toast('Write something first — even one line.'); ta.focus(); return; }
-      store.set('ifmtis:answer:' + st.dataset.id, JSON.stringify({ text, at: new Date().toISOString() }));
-      store.del('ifmtis:draft:' + st.dataset.id);
-      toast('Thank you. Saved on this device only — nothing was sent.');
-      ta.value = '';
-      flip(st, false);
+      const btn = e.target.closest('.send'), form = (window.SITE || {}).form;
+      const done = (sent) => {
+        store.set('ifmtis:answer:' + st.dataset.id, JSON.stringify({ text, at: new Date().toISOString(), sent }));
+        store.del('ifmtis:draft:' + st.dataset.id);
+        toast(sent ? 'Thank you. Your words were sent anonymously.' : 'Thank you. Saved on this device only — nothing was sent.');
+        ta.value = '';
+        btn.disabled = false;
+        flip(st, false);
+      };
+      if (form && form.action) {
+        // Google Form: POST in no-cors mode (response is opaque, so a resolved fetch means it was delivered)
+        const body = new URLSearchParams();
+        body.set(form.fields.text, text);
+        if (form.fields.situation) body.set(form.fields.situation, st.dataset.id);
+        btn.disabled = true; toast('Sending…');
+        fetch(form.action, { method: 'POST', mode: 'no-cors', body })
+          .then(() => done(true))
+          .catch(() => { btn.disabled = false; toast('Could not send — check your connection and try again. Your text is still here.'); });
+      } else done(false);
     }
   });
   stack.addEventListener('input', (e) => { if (e.target.classList.contains('write')) store.set('ifmtis:draft:' + e.target.closest('.stage').dataset.id, e.target.value); });
@@ -224,22 +238,21 @@
     </article>`).join('');
 
   /* ================= posters ================= */
-  function posterHTML(s) {
-    const p = s.poster;
-    if (p.image) return `<div class="ph has-img" data-theme="${s.theme}"><img src="${esc(p.image)}" alt="Typography poster for ${esc(s.title)}"></div>`;
-    return `<div class="ph" data-theme="${s.theme}" style="--fs:${p.word.length > 9 ? '17cqw' : '24cqw'}"><span class="ph-id">${s.id} · ${esc(themes[s.theme].label.toUpperCase())}</span><span class="ph-word">${esc(p.word)}</span><span class="ph-foot">I FEEL MORE THAN I SAY.<span class="ph-flag">Placeholder artwork</span></span></div>`;
+  if (SITE.form && SITE.form.action) { const n = $('#send-note'); if (n) n.hidden = false; }
+  const posters = SITE.posters || [];
+  function posterHTML(p, big) {
+    return `<div class="ph has-img"><img src="${esc(p.image)}" alt="${esc(p.alt || 'Typography poster')}" ${big ? '' : 'loading="lazy"'} decoding="async"></div>`;
   }
   const pMain = $('#poster-main'), thumbs = $('#thumbs');
   let pIdx = 0;
-  thumbs.innerHTML = situations.map((s, i) => `<button type="button" class="thumb" data-i="${i}" aria-label="Poster ${i + 1}: ${esc(s.title)}">${posterHTML(s)}</button>`).join('');
+  thumbs.innerHTML = posters.map((p, i) => `<button type="button" class="thumb" data-i="${i}" aria-label="Show poster ${i + 1}">${posterHTML(p)}</button>`).join('');
   function showPoster(i, animateIt) {
-    pIdx = (i + situations.length) % situations.length;
-    const s = situations[pIdx];
-    pMain.innerHTML = posterHTML(s);
-    $('#poster-count').textContent = `Poster ${String(pIdx + 1).padStart(2, '0')} / ${String(situations.length).padStart(2, '0')}`;
-    $('#poster-title').textContent = s.theme === 'relationship' ? 'Relationship' : 'Self';
-    $('#poster-caption').textContent = s.poster.caption || 'Placeholder artwork. The final poster will interpret the consented responses collected for this situation, and say which words are the participants’ and which are the designers’.';
-    $('#poster-situation').dataset.id = s.id;
+    pIdx = (i + posters.length) % posters.length;
+    const p = posters[pIdx];
+    pMain.innerHTML = posterHTML(p, true);
+    $('#poster-count').textContent = `Poster ${String(pIdx + 1).padStart(2, '0')} / ${String(posters.length).padStart(2, '0')}`;
+    $('#poster-title').textContent = p.theme === 'relationship' ? 'Relationship' : 'Self';
+    $('#poster-caption').textContent = SITE.posterCaption || '';
     $$('.thumb', thumbs).forEach((t, k) => t.setAttribute('aria-current', String(k === pIdx)));
     if (fx && animateIt) A({ targets: pMain, opacity: [0, 1], translateY: [18, 0], rotate: [-1.5, 0], duration: 600, easing: 'easeOutCubic' });
   }
@@ -247,14 +260,8 @@
   $('#poster-prev').addEventListener('click', () => showPoster(pIdx - 1, true));
   $('#poster-next').addEventListener('click', () => showPoster(pIdx + 1, true));
   $('#poster-sheet').addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') showPoster(pIdx - 1, true); if (e.key === 'ArrowRight') showPoster(pIdx + 1, true); });
-  $('#poster-situation').addEventListener('click', (e) => {
-    e.preventDefault();
-    const st = $(`.stage[data-id="${e.currentTarget.dataset.id}"]`);
-    st.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
-    if (fx) A({ targets: $('.cardwrap', st), scale: [{ value: 1.05, duration: 350 }, { value: 1, duration: 600 }], easing: 'easeInOutSine', delay: 500 });
-  });
   const lb = $('#lightbox');
-  pMain.addEventListener('click', () => { $('#lb-body').innerHTML = posterHTML(situations[pIdx]); lb.showModal(); });
+  pMain.addEventListener('click', () => { $('#lb-body').innerHTML = posterHTML(posters[pIdx], true); lb.showModal(); });
   $('#lb-close').addEventListener('click', () => lb.close());
   lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
   showPoster(0, false);

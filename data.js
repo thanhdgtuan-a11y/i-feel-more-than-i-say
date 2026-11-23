@@ -30,7 +30,17 @@ const sampleAnswers = [
   'Saying it out loud feels scary, but also like relief.',
 ].map((text) => ({ text, sample: true }));
 
+/* SUBMISSIONS ("Send your think")
+   Google Form that receives the words. Fill in `action` and the two entry ids
+   (see README / ask Claude). While `action` is null, Send only saves on the device. */
+const SUBMIT_FORM = {
+  action: null,                  // 'https://docs.google.com/forms/d/e/<FORM_ID>/formResponse'
+  fields: { text: null,          // 'entry.1234567890'  (long answer: the words)
+            situation: null },   // 'entry.0987654321'  (short answer: F01 / F02 / S01 / S02)
+};
+
 window.SITE = {
+  form: SUBMIT_FORM,
   themes: {
     relationship: { label: 'Relationships' },
     self: { label: 'Self and Social Expectations' },
@@ -67,6 +77,17 @@ window.SITE = {
       answers: sampleAnswers,
     },
   ],
+
+  // Typography poster series (Figma node 18:585). 6 posters, independent of the 4 situations.
+  posters: [
+    { image: 'assets/posters/poster-1.png', theme: 'self',         alt: 'Poster: “Growing up isn’t just about gaining… I’m proud of who I am… sometimes, it’s about losing”' },
+    { image: 'assets/posters/poster-2.png', theme: 'relationship', alt: 'Poster: “They haven’t opened up”' },
+    { image: 'assets/posters/poster-3.png', theme: 'relationship', alt: 'Poster: “I want to make you proud… more, more, more”' },
+    { image: 'assets/posters/poster-4.png', theme: 'self',         alt: 'Poster: “I want to learn from them… learn, losing”' },
+    { image: 'assets/posters/poster-5.png', theme: 'relationship', alt: 'Poster: “They haven’t opened up” (black on white)' },
+    { image: 'assets/posters/poster-6.png', theme: 'self',         alt: 'Poster: “I want to learn from them… learn, losing” (black on white)' },
+  ],
+  posterCaption: 'One poster from the typography series, designed from the responses collected. The words are the participants’; the layout is the designers’.',
 
   shirts: [
     { name: 'Family blue',  image: 'assets/art/shirt-1.png', orderUrl: null, price: '100.000vnd' },

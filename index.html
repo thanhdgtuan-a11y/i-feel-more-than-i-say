@@ -71,7 +71,7 @@
       <section class="sec sec-sit" id="situations" aria-labelledby="sit-h">
         <header class="sec-head">
           <h2 id="sit-h"><span class="h2-a">Four everyday situations.</span><br><em>Pick a card.</em></h2>
-          <p class="sec-sub">Each card hides a scenario. Open one, pause, then see what others left unsaid. The small bubbles are anonymous responses — hover one to read it.</p>
+          <p class="sec-sub">Each card hides a scenario. Open one, pause, then see what others left unsaid. The small bubbles are anonymous responses — hover one to read it. <span id="send-note" hidden>Flip a card to write your own — it is sent anonymously, so please leave out names. By sending, you agree it may be shown here without your name.</span></p>
         </header>
         <div class="stack" id="stack"></div>
       </section>
@@ -99,11 +99,10 @@
               <h3 id="poster-title"></h3>
               <p id="poster-caption" class="muted"></p>
               <div class="poster-ctrl">
-                <button type="button" class="btn round" id="poster-prev" aria-label="Previous poster">‹</button>
-                <button type="button" class="btn round" id="poster-next" aria-label="Next poster">›</button>
-                <span class="muted small">Click poster to enlarge</span>
+                <button type="button" class="arrow" id="poster-prev" aria-label="Previous poster"><svg viewBox="0 0 68 68" aria-hidden="true"><circle cx="34" cy="34" r="31" fill="none" stroke="currentColor" stroke-width="3.5"/><path d="M38.5 21 25.5 34l13 13" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button type="button" class="arrow" id="poster-next" aria-label="Next poster"><svg viewBox="0 0 68 68" aria-hidden="true"><circle cx="34" cy="34" r="31" fill="none" stroke="currentColor" stroke-width="3.5"/><path d="M29.5 21 42.5 34l-13 13" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               </div>
-              <a class="btn solid" id="poster-situation" href="#situations">Open this situation →</a>
+              <p class="muted small">Click the poster to enlarge.</p>
             </div>
           </div>
           <div class="thumbs" id="thumbs" role="group" aria-label="All posters"></div>
