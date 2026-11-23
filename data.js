@@ -34,9 +34,9 @@ const sampleAnswers = [
    Google Form that receives the words. Fill in `action` and the two entry ids
    (see README / ask Claude). While `action` is null, Send only saves on the device. */
 const SUBMIT_FORM = {
-  action: null,                  // 'https://docs.google.com/forms/d/e/<FORM_ID>/formResponse'
-  fields: { text: null,          // 'entry.1234567890'  (long answer: the words)
-            situation: null },   // 'entry.0987654321'  (short answer: F01 / F02 / S01 / S02)
+  action: 'https://docs.google.com/forms/d/e/1FAIpQLSdBTN5WfuaVJJOy5UKXFYhA3IW9CX_AouIMKarYqXrsW7evGg/formResponse',
+  fields: { text: 'entry.952067426',      // long answer: the words
+            situation: 'entry.11201227' }, // short answer: F01 / F02 / S01 / S02
 };
 
 window.SITE = {
