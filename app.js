@@ -252,7 +252,8 @@
     pMain.innerHTML = posterHTML(p, true);
     $('#poster-count').textContent = `Poster ${String(pIdx + 1).padStart(2, '0')} / ${String(posters.length).padStart(2, '0')}`;
     $('#poster-title').textContent = p.theme === 'relationship' ? 'Relationship' : 'Self';
-    $('#poster-caption').textContent = SITE.posterCaption || '';
+    const cap = $('#poster-caption');
+    cap.innerHTML = String(p.caption || SITE.posterCaption || '').split(/\n\s*\n/).map((t) => `<span class="cap-p">${esc(t)}</span>`).join('');
     $$('.thumb', thumbs).forEach((t, k) => t.setAttribute('aria-current', String(k === pIdx)));
     if (fx && animateIt) A({ targets: pMain, opacity: [0, 1], translateY: [18, 0], rotate: [-1.5, 0], duration: 600, easing: 'easeOutCubic' });
   }

@@ -80,14 +80,17 @@ window.SITE = {
 
   // Typography poster series (Figma node 18:585). 6 posters, independent of the 4 situations.
   posters: [
-    { image: 'assets/posters/poster-1.png', theme: 'self',         alt: 'Poster: “Growing up isn’t just about gaining… I’m proud of who I am… sometimes, it’s about losing”' },
-    { image: 'assets/posters/poster-2.png', theme: 'relationship', alt: 'Poster: “They haven’t opened up”' },
-    { image: 'assets/posters/poster-3.png', theme: 'relationship', alt: 'Poster: “I want to make you proud… more, more, more”' },
-    { image: 'assets/posters/poster-4.png', theme: 'self',         alt: 'Poster: “I want to learn from them… learn, losing”' },
-    { image: 'assets/posters/poster-5.png', theme: 'relationship', alt: 'Poster: “They haven’t opened up” (black on white)' },
-    { image: 'assets/posters/poster-6.png', theme: 'self',         alt: 'Poster: “I want to learn from them… learn, losing” (black on white)' },
+    // Order follows the Figma thumbnails left → right. `caption` = the poster's meaning (shown beside it);
+    // posters without a caption fall back to `posterCaption` below.
+    { image: 'assets/posters/poster-1.png', theme: 'relationship', alt: 'Poster: “I want to make you proud… more, more, more… why do I still feel I’m not enough?”',
+      caption: 'Variations in typeface, weight and scale create a dense typographic composition that visually communicates mounting pressure.\n\nThe smaller red phrase “still not enough” contrasts with the overwhelming repetition, suggesting an internal sense of inadequacy despite continued effort.' },
+    { image: 'assets/posters/poster-2.png', theme: 'relationship', alt: 'Poster: “They haven’t opened up” on a blurred grey background', caption: null },
+    { image: 'assets/posters/poster-3.png', theme: 'relationship', alt: 'Poster: “They haven’t opened up” in black on white', caption: null },
+    { image: 'assets/posters/poster-4.png', theme: 'self',         alt: 'Poster: “I want to learn from them… learn, losing”', caption: null },
+    { image: 'assets/posters/poster-5.png', theme: 'self',         alt: 'Poster: “I want to learn from them… learn, losing” in black on white', caption: null },
+    { image: 'assets/posters/poster-6.png', theme: 'self',         alt: 'Poster: “Growing up isn’t just about gaining… I’m proud of who I am… sometimes, it’s about losing”', caption: null },
   ],
-  posterCaption: 'One poster from the typography series, designed from the responses collected. The words are the participants’; the layout is the designers’.',
+  posterCaption:'One poster from the typography series, designed from the responses collected. The words are the participants’; the layout is the designers’.',
 
   shirts: [
     { name: 'Family blue',  image: 'assets/art/shirt-1.png', orderUrl: null, price: '100.000vnd' },
