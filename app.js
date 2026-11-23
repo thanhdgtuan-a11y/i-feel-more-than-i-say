@@ -267,6 +267,25 @@
   lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
   showPoster(0, false);
 
+  // Keep the arrows fixed: reserve the height of the longest caption so the controls never move.
+  const capEl = $('#poster-caption');
+  function fixCaptionHeight() {
+    const clone = capEl.cloneNode(false);
+    clone.removeAttribute('id');
+    clone.style.cssText = `position:absolute;visibility:hidden;pointer-events:none;left:0;top:0;min-height:0;width:${capEl.getBoundingClientRect().width}px`;
+    capEl.parentNode.appendChild(clone);
+    let max = 0;
+    posters.forEach((p) => {
+      clone.innerHTML = String(p.caption || SITE.posterCaption || '').split(/\n\s*\n/).map((t) => `<span class="cap-p">${esc(t)}</span>`).join('');
+      max = Math.max(max, clone.getBoundingClientRect().height);
+    });
+    clone.remove();
+    capEl.style.minHeight = Math.ceil(max) + 'px';
+  }
+  fixCaptionHeight();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fixCaptionHeight);
+  let capT; addEventListener('resize', () => { clearTimeout(capT); capT = setTimeout(fixCaptionHeight, 120); });
+
   /* ================= nav ================= */
   const nav = $('#nav');
   const onScroll = () => nav.classList.toggle('is-scrolled', scrollY > 24);
