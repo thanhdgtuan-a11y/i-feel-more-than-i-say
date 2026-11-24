@@ -53,7 +53,16 @@ window.SITE = {
       // writing area on the back of the card, as % of the card (x, y, width, height) and line height in px @656w
       write: { x: 10.5, y: 46, w: 80, h: 44, lh: 24, color: '#302D43' },
       poster: { word: 'Compared.', image: null, caption: null },
-      answers: sampleAnswers,
+      answers: [
+        'I think everyone has different strengths and abilities, so it’s normal not to be as good as others at everything.',
+        'I don’t really feel pressured because my parents don’t compare me to other people.',
+        'I believe in myself and my own abilities. I don’t need to be better than everyone else.',
+        'I feel disappointed in myself because I really want to make my parents happy and proud.',
+        'I feel sad and disappointed when my efforts don’t seem to be enough.',
+        'I’m disappointed with my results, but I’ll keep trying to do better next time.',
+        'I wish my parents would support and encourage me instead of focusing on how well others are doing.',
+        'I feel pressured, angry, and sometimes ashamed. I start doubting myself, even though I’m trying my best to make my parents proud.',
+      ].map((text) => ({ text })),
     },
     {
       id: 'F02', theme: 'relationship', title: 'Hidden struggle',
