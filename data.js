@@ -133,9 +133,9 @@ window.SITE = {
 
   shirts: [
     // names describe each design (the old Figma names — Family / Friendship / Love / Self — came from the 8-situation version)
-    { name: 'Growing up · white',                 image: 'assets/art/shirt-1.png', orderUrl: null, price: '100.000vnd' },
-    { name: 'They haven’t opened up · black',     image: 'assets/art/shirt-2.png', orderUrl: null, price: '100.000vnd' },
-    { name: 'Learn / Losing · rust',              image: 'assets/art/shirt-3.png', orderUrl: null, price: '100.000vnd' },
-    { name: 'They haven’t opened up · orange',    image: 'assets/art/shirt-4.png', orderUrl: null, price: '100.000vnd' },
+    { name: 'Growing up · white',         image: 'assets/art/shirt-1.png', orderUrl: null, price: '100.000vnd' },
+    { name: 'Haven’t opened up · black',  image: 'assets/art/shirt-2.png', orderUrl: null, price: '100.000vnd' },
+    { name: 'Learn / Losing · rust',      image: 'assets/art/shirt-3.png', orderUrl: null, price: '100.000vnd' },
+    { name: 'Haven’t opened up · orange', image: 'assets/art/shirt-4.png', orderUrl: null, price: '100.000vnd' },
   ],
 };

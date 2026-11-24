@@ -250,7 +250,6 @@
     <article class="shirt" data-reveal>
       <div class="shirt-img"><img src="${esc(s.image)}" alt="T-shirt design ${i + 1}: ${esc(s.name)}" loading="lazy"></div>
       <h3>Shirt 0${i + 1} — ${esc(s.name)}</h3>
-      <p class="meta">Sizes &amp; material: to be confirmed</p>
       <div class="shirt-row"><span>${s.price ? esc(s.price) : 'Price TBC'}</span>
         ${s.orderUrl ? `<a class="btn solid" href="${esc(s.orderUrl)}" rel="noopener">Order</a>` : '<span class="btn is-soon" aria-disabled="true">Coming soon</span>'}</div>
     </article>`).join('');

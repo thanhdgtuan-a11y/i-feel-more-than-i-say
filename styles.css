@@ -45,7 +45,7 @@ body::after{
 .btn.solid{background:var(--ink);color:#fff}
 .btn.solid:hover{background:#4b4766}
 .btn.round{width:44px;height:44px;padding:0;font-size:1.3rem}
-.btn.is-soon{border-style:dashed;color:var(--muted);border-color:var(--muted);cursor:default;pointer-events:none}
+.btn.is-soon{color:var(--ink);border-color:var(--ink);cursor:default;pointer-events:none}
 
 /* nav (glass pill) */
 .nav{
@@ -216,7 +216,11 @@ body::after{
 }
 
 /* ---------- shirts ---------- */
-.sec-shirts{background:linear-gradient(180deg,rgba(255,255,255,0),rgba(214,224,248,.45) 40%,rgba(244,210,226,.35))}
+/* soft blue wash with two deeper blue glows at the top corners (Figma "Shirts") */
+.sec-shirts{background:
+  radial-gradient(42% 46% at 0% 8%,rgba(110,150,215,.38),transparent 72%),
+  radial-gradient(46% 42% at 100% 0%,rgba(70,135,225,.40),transparent 72%),
+  linear-gradient(180deg,rgba(255,255,255,0),rgba(205,228,250,.55) 38%,rgba(222,238,252,.5))}
 .shirts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:1120px;margin:0 auto}
 @media (min-width:860px){.shirts{grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}}
 .shirt{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:22px;padding:14px;display:flex;flex-direction:column;gap:6px;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
