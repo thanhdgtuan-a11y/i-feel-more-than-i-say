@@ -3,16 +3,14 @@
    Edit THIS file to update the website. No other code needs to change.
 
    ANSWERS (the floating bubbles around each question)
-   Each situation has an `answers` list. Hovering a bubble opens it into a card
-   that shows one answer. Right now they hold SAMPLE text (flagged "sample").
-   To use real, consented responses, replace the list with:
-        { text: 'The full anonymised answer…' }
-   and remove `sample: true`. Only publish responses with separate consent.
-   If a situation has fewer answers than bubbles, the remaining bubbles stay
-   as quiet placeholders.
+   Each situation has an `answers` list: one bubble per answer (max 11). Hovering
+   (or tapping) a bubble opens it into a card that shows the answer.
+   Format: { text: 'The full anonymised answer…' }. Only publish responses that
+   have separate consent. (`sampleAnswers` below is unused; entries flagged
+   `sample: true` would show a "Sample answer" label.)
 
    POSTERS
-   poster.image: 'assets/posters/F01.jpg'  (leave null for the typographic placeholder)
+   `posters` (below): image, theme (relationship | self), alt text, caption (the poster's meaning).
 
    SHIRTS
    shirts[i].orderUrl: link to your order form / shop. (null shows "Coming soon").
@@ -134,9 +132,10 @@ window.SITE = {
   posterCaption:'One poster from the typography series, designed from the responses collected. The words are the participants’; the layout is the designers’.',
 
   shirts: [
-    { name: 'Family blue',  image: 'assets/art/shirt-1.png', orderUrl: null, price: '100.000vnd' },
-    { name: 'Friendship',   image: 'assets/art/shirt-2.png', orderUrl: null, price: '100.000vnd' },
-    { name: 'Love blush',   image: 'assets/art/shirt-3.png', orderUrl: null, price: '100.000vnd' },
-    { name: 'Self violet',  image: 'assets/art/shirt-4.png', orderUrl: null, price: '100.000vnd' },
+    // names describe each design (the old Figma names — Family / Friendship / Love / Self — came from the 8-situation version)
+    { name: 'Growing up · white',                 image: 'assets/art/shirt-1.png', orderUrl: null, price: '100.000vnd' },
+    { name: 'They haven’t opened up · black',     image: 'assets/art/shirt-2.png', orderUrl: null, price: '100.000vnd' },
+    { name: 'Learn / Losing · rust',              image: 'assets/art/shirt-3.png', orderUrl: null, price: '100.000vnd' },
+    { name: 'They haven’t opened up · orange',    image: 'assets/art/shirt-4.png', orderUrl: null, price: '100.000vnd' },
   ],
 };

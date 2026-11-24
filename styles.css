@@ -159,7 +159,7 @@ body::after{
 .back-actions button:hover{background:var(--ink);color:#fff}
 .back-actions .send{background:var(--ink);color:#fff;box-shadow:0 8px 18px -8px rgba(48,45,67,.6)}
 .back-actions .send:hover{background:#4b4766}
-.back-actions .count{font-size:max(11px,calc(9.5*var(--u)));color:var(--muted)}
+.back-actions .count{font-size:max(11px,calc(9.5*var(--u)));color:var(--muted);min-width:7.5ch;text-align:center;font-variant-numeric:tabular-nums}
 
 /* bubbles (floating answers) */
 .bubbles{position:absolute;inset:0;z-index:3;pointer-events:none}
@@ -193,23 +193,24 @@ body::after{
   .face{border-radius:26px}
   .front .q-wrap{top:10%;height:56%;width:82%}
   .q{font-size:clamp(1.05rem,5vw,1.35rem)}
-  .write-btn{top:auto;bottom:11%;height:34px;min-width:130px;font-size:12px}
+  .write-btn{top:auto;bottom:9%;height:44px;min-width:140px;font-size:13px}
   .stage{--bu:calc((100vw - 2*var(--gut))/656)}
-  .write{font-size:max(12px,calc(16*var(--bu)));line-height:calc(var(--wlh)*var(--bu))}
+  /* 16px: below that, iOS Safari zooms the page in when the textarea is focused */
+  .write{font-size:16px;line-height:1.3}
   .back-actions{top:calc(var(--bu)*458 + 3% + 18px);bottom:auto;gap:10px}
-  .back-actions button{height:36px;font-size:12px}
+  .back-actions button{height:44px;font-size:13px}
   .bubble{left:var(--mx);top:var(--my);width:var(--mw,92px);height:var(--mh,28px)}
   .bubble:nth-child(1){--mx:2%;--my:2%;--mw:104px;--mh:32px}
   .bubble:nth-child(2){--mx:66%;--my:7%;--mw:82px}
-  .bubble:nth-child(3){--mx:38%;--my:12%;--mw:70px;--mh:24px}
+  .bubble:nth-child(3){--mx:38%;--my:12%;--mw:70px;--mh:30px}
   .bubble:nth-child(4){--mx:70%;--my:74%;--mw:100px;--mh:32px}
   .bubble:nth-child(5){--mx:2%;--my:78%;--mw:118px;--mh:34px}
-  .bubble:nth-child(6){--mx:44%;--my:84%;--mw:74px;--mh:24px}
+  .bubble:nth-child(6){--mx:44%;--my:84%;--mw:74px;--mh:30px}
   .bubble:nth-child(7){--mx:-2%;--my:60%;--mw:76px}
-  .bubble:nth-child(8){--mx:76%;--my:56%;--mw:70px;--mh:24px}
-  .bubble:nth-child(9){--mx:20%;--my:68%;--mw:70px;--mh:24px}
-  .bubble:nth-child(10){--mx:84%;--my:14%;--mw:72px;--mh:24px}
-  .bubble:nth-child(11){--mx:44%;--my:75%;--mw:70px;--mh:24px}
+  .bubble:nth-child(8){--mx:76%;--my:56%;--mw:70px;--mh:30px}
+  .bubble:nth-child(9){--mx:20%;--my:68%;--mw:70px;--mh:30px}
+  .bubble:nth-child(10){--mx:84%;--my:14%;--mw:72px;--mh:30px}
+  .bubble:nth-child(11){--mx:44%;--my:75%;--mw:70px;--mh:30px}
   .bubble-bars i{height:4px}
   .bubble-bars{gap:4px}
 }
@@ -224,8 +225,8 @@ body::after{
 .shirt-img img{display:block;width:100%;height:100%;object-fit:cover}
 .shirt h3{margin:8px 0 0;font-size:1.05rem;line-height:1.2}
 .shirt .meta{margin:0;font-size:.8rem;color:var(--muted)}
-.shirt-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:8px;font-size:.88rem;font-weight:600}
-.shirt-row .btn{padding:.45em 1em;font-size:.8rem}
+.shirt-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:8px;font-size:.88rem;font-weight:600}
+.shirt-row .btn{padding:.45em 1em;font-size:.8rem;white-space:nowrap}
 
 /* ---------- posters ---------- */
 .sheet{max-width:1120px;margin:0 auto;background:var(--paper);border-radius:clamp(24px,3.6vw,44px);box-shadow:var(--shadow);padding:clamp(16px,3.6vw,41px);display:grid;gap:clamp(22px,4vw,37px)}

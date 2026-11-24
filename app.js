@@ -175,6 +175,8 @@
     [...openBubbles].forEach(closeBubble);
     const wrap = $('.cardwrap', st), f = $('.flip', st), front = $('.face.front', st), back = $('.face.back', st), acts = $('.back-actions', st);
     const bubbles = $$('.bubble', st);
+    // clicked while the card was still sliding in: finish that entrance instantly so we measure the resting position
+    if (fx) { A.remove(wrap); wrap.style.opacity = 1; wrap.style.transform = 'none'; }
     const r0 = rectIn(wrap, st);
     st.classList.toggle('is-flipped', toBack);             // CSS now holds the target geometry
     const r1 = rectIn(wrap, st);
@@ -200,8 +202,11 @@
     if (toBack) A({ targets: acts, opacity: [0, 1], translateY: [14, 0], duration: 500, delay: 800, easing: 'easeOutQuad' });
   }
 
+  // character counter between Back and Send ("42 / 600")
+  const updateCount = (st) => { const ta = $('.write', st); $('.count', st).textContent = `${ta.value.length} / ${ta.maxLength}`; };
+
   // restore drafts
-  $$('.stage').forEach((st) => { const d = store.get('ifmtis:draft:' + st.dataset.id); if (d) $('.write', st).value = d; });
+  $$('.stage').forEach((st) => { const d = store.get('ifmtis:draft:' + st.dataset.id); if (d) $('.write', st).value = d; updateCount(st); });
 
   stack.addEventListener('click', (e) => {
     const st = e.target.closest('.stage'); if (!st) return;
@@ -215,7 +220,7 @@
         store.set('ifmtis:answer:' + st.dataset.id, JSON.stringify({ text, at: new Date().toISOString(), sent }));
         store.del('ifmtis:draft:' + st.dataset.id);
         toast(sent ? 'Thank you. Your words were sent anonymously.' : 'Thank you. Saved on this device only — nothing was sent.');
-        ta.value = '';
+        ta.value = ''; updateCount(st);
         btn.disabled = false;
         flip(st, false);
       };
@@ -231,7 +236,11 @@
       } else done(false);
     }
   });
-  stack.addEventListener('input', (e) => { if (e.target.classList.contains('write')) store.set('ifmtis:draft:' + e.target.closest('.stage').dataset.id, e.target.value); });
+  stack.addEventListener('input', (e) => {
+    if (!e.target.classList.contains('write')) return;
+    const st = e.target.closest('.stage');
+    store.set('ifmtis:draft:' + st.dataset.id, e.target.value); updateCount(st);
+  });
   stack.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { const st = e.target.closest && e.target.closest('.stage.is-flipped'); if (st) flip(st, false); }
   });
@@ -299,6 +308,11 @@
   const nav = $('#nav');
   const onScroll = () => nav.classList.toggle('is-scrolled', scrollY > 24);
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // deep link (QR on the printed card → index.html#F01); works with or without animations
+  const deepId = decodeURIComponent(location.hash.slice(1)).toUpperCase();
+  const deepStage = deepId && $(`.stage[data-id="${deepId}"]`);
+  if (deepStage) setTimeout(() => deepStage.scrollIntoView({ block: 'center' }), 200);
 
   /* ================= entrance animations ================= */
   if (!fx) return;
@@ -421,9 +435,4 @@
   addEventListener('resize', kick);
   measure();
   kick();
-
-  // deep link (QR on the printed card → index.html#F01)
-  const id = decodeURIComponent(location.hash.slice(1)).toUpperCase();
-  const target = id && $(`.stage[data-id="${id}"]`);
-  if (target) setTimeout(() => target.scrollIntoView({ block: 'center' }), 200);
 })();
