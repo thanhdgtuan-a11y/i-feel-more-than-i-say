@@ -90,9 +90,15 @@
     b.setAttribute('aria-expanded', 'true');
     stopFloat(b);
     A.remove(b);
+    // re-entered while the close animation was still running: kill it completely (bars fading in, text fading out)
+    const mid = b.classList.contains('is-open');
+    const ans0 = $('.bubble-answer', b), bars0 = $('.bubble-bars', b);
+    A.remove(bars0); A.remove(ans0);
+    const aop = mid ? parseFloat(getComputedStyle(ans0).opacity) || 0 : 0;
     // fold the current float offset into left/top so there is no jump
-    const tx = fx ? parseFloat(A.get(b, 'translateX')) || 0 : 0, ty = fx ? parseFloat(A.get(b, 'translateY')) || 0 : 0;
-    const o = { l: b.offsetLeft, t: b.offsetTop, w: b.offsetWidth, h: b.offsetHeight };
+    const tx = fx && !mid ? parseFloat(A.get(b, 'translateX')) || 0 : 0, ty = fx && !mid ? parseFloat(A.get(b, 'translateY')) || 0 : 0;
+    const cur = { l: b.offsetLeft, t: b.offsetTop, w: b.offsetWidth, h: b.offsetHeight };   // where it is right now
+    const o = mid && b._o ? b._o : cur;                                                      // where it rests when closed
     b._o = o;
     const sw = st.clientWidth, sh = st.clientHeight;
     const W = Math.min(sw - 12, clamp(sw * 0.38, 250, 430));
@@ -103,15 +109,16 @@
     const H = Math.max(b.offsetHeight, 84);
     b.setAttribute('style', keep); ans.style.position = ''; ans.style.inset = '';
     const px = parseFloat(b.style.getPropertyValue('--parx')) || 0, py = parseFloat(b.style.getPropertyValue('--pary')) || 0;
-    const sL = o.l + tx + px, sT = o.t + ty + py;
-    const nL = clamp(sL + (o.w - W) / 2, 6, sw - W - 6);
-    const nT = clamp(sT + (o.h - H) / 2 - 14, 4, sh - H - 4);
+    const sL = mid ? cur.l : o.l + tx + px, sT = mid ? cur.t : o.t + ty + py;
+    const sW = mid ? cur.w : o.w, sH = mid ? cur.h : o.h;
+    const nL = clamp(o.l + tx + px + (o.w - W) / 2, 6, sw - W - 6);
+    const nT = clamp(o.t + ty + py + (o.h - H) / 2 - 14, 4, sh - H - 4);
     b.style.transform = 'none';
     b.classList.add('is-open');
     if (!fx) { Object.assign(b.style, { left: nL + 'px', top: nT + 'px', width: W + 'px', height: H + 'px', borderRadius: '30px' }); $('.bubble-bars', b).style.opacity = 0; ans.style.opacity = 1; return; }
-    A({ targets: b, left: [sL, nL], top: [sT, nT], width: [o.w, W], height: [o.h, H], borderRadius: ['999px', '30px'], duration: 700, easing: 'easeOutElastic(1, .85)' });
+    A({ targets: b, left: [sL, nL], top: [sT, nT], width: [sW, W], height: [sH, H], borderRadius: [mid ? '30px' : '999px', '30px'], duration: 700, easing: 'easeOutElastic(1, .85)' });
     A({ targets: $('.bubble-bars', b), opacity: 0, duration: 180, easing: 'linear' });
-    A({ targets: ans, opacity: [0, 1], translateY: [10, 0], duration: 420, delay: 160, easing: 'easeOutQuad' });
+    A({ targets: ans, opacity: [aop, 1], translateY: [10, 0], duration: 420, delay: mid ? 0 : 160, easing: 'easeOutQuad' });
   }
   function closeBubble(b) {
     if (!b._open) return;
