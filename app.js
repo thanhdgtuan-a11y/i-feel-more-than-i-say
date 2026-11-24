@@ -383,6 +383,7 @@
   let ticking = false;
   // each bubble may drift only as far as keeps it inside its own stage (so it never lands on the next card)
   const FLOAT = 12;                                               // vertical float amplitude (px) kept in reserve
+  const DRIFT_UP = 40, DRIFT_DOWN = 16;                           // max scroll-parallax drift (px) away from the resting spot
   function measure() {
     layers.forEach((l) => {
       if (l.el.classList.contains('is-open')) return;
@@ -397,8 +398,9 @@
       if (!vis.has(l.st)) return;
       const r = l.st.getBoundingClientRect();
       const p = r.top + r.height / 2 - vh / 2;                    // >0 when the stage sits below the middle of the screen
-      const lo = l.minY === undefined ? -110 : Math.max(-110, l.minY), hi = l.maxY === undefined ? 110 : Math.min(110, l.maxY);
-      l.ty = clamp(p * (l.d - 1) * 0.32, lo, hi);
+      // keep bubbles hugging their card: small drift up, even smaller drift down
+      const lo = l.minY === undefined ? -DRIFT_UP : Math.max(-DRIFT_UP, l.minY), hi = l.maxY === undefined ? DRIFT_DOWN : Math.min(DRIFT_DOWN, l.maxY);
+      l.ty = clamp(p * (l.d - 1) * 0.2, lo, hi);
       l.tx = clamp(p * (l.d - 1) * 0.07, -26, 26);
     });
     heroLayers.forEach((l) => { l.ty = clamp(-scrollY * (l.d - 1) * 0.3, -180, 180); });
