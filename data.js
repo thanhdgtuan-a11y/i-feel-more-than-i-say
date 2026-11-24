@@ -106,7 +106,16 @@ window.SITE = {
       question: 'You reflect on who you were in the past compared to who you are today.',
       write: { x: 12.8, y: 59, w: 71.5, h: 29, lh: 26, color: '#302D43' },
       poster: { word: 'Then. Now.', image: null, caption: null },
-      answers: sampleAnswers,
+      answers: [
+        'I think the old me was more innocent and way more emotional than I am now.',
+        'I’ve changed a lot, and honestly I think I’ve improved in a pretty good way.',
+        'Back then I was scared to just be myself. I always wanted everyone around me to like me. Now I feel like being real with myself is the best way to live.',
+        'Nothing much has changed, to be honest.',
+        'Past me was super impulsive. Now I’m much calmer.',
+        'I used to be shy and insecure. Now I’m more confident and more open to trying new things.',
+        'I feel more complete than before. I’ve changed a lot, but I think it’s helped me become a better version of myself.',
+        'Emotionally, I’m in a better place than I used to be.',
+      ].map((text) => ({ text })),
     },
   ],
 
