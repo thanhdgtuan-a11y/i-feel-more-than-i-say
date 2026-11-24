@@ -19,7 +19,7 @@
   /* ================= situations: stages ================= */
   // bubble boxes on the 1120×516 design canvas: [x, y, w, h] (Figma "Frame 1" offset (132,42) already added)
   const OFF = [132, 42];
-  const BOXES = [[23, 0, 166, 53], [341, 95, 101, 32], [93, 353, 260, 83], [566, 101, 232, 74], [695, 286, 155, 50], [0, 281, 141, 45], [522, 375, 93, 30], [144, 175, 93, 30], [-125, 106, 166, 53]];
+  const BOXES = [[23, 0, 166, 53], [341, 95, 101, 32], [93, 353, 260, 83], [566, 101, 232, 74], [695, 286, 155, 50], [0, 281, 141, 45], [522, 375, 93, 30], [144, 175, 93, 30], [-125, 106, 166, 53], [880, 20, 120, 36]];
 
   function bubbleHTML(s, si, i) {
     const [x, y, w, h] = BOXES[i];
@@ -35,7 +35,9 @@
 
   function stageHTML(s, si) {
     const w = s.write;
-    const count = s.id === 'S01' ? 9 : 8;
+    // real (non-sample) answers: one bubble per answer; otherwise the default layout (9 for S01, 8 for the rest)
+    const real = s.answers.length > 0 && s.answers.every((a) => !a.sample);
+    const count = real ? Math.min(s.answers.length, BOXES.length) : (s.id === 'S01' ? 9 : 8);
     return `<article class="stage" data-id="${s.id}" data-theme="${s.theme}" aria-labelledby="q-${s.id}">
       <div class="bubbles">${Array.from({ length: count }, (_, i) => bubbleHTML(s, si, i)).join('')}</div>
       <div class="cardwrap"><div class="card3d"><div class="flip">

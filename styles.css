@@ -208,6 +208,7 @@ body::after{
   .bubble:nth-child(7){--mx:-2%;--my:60%;--mw:76px}
   .bubble:nth-child(8){--mx:76%;--my:56%;--mw:70px;--mh:24px}
   .bubble:nth-child(9){--mx:20%;--my:68%;--mw:70px;--mh:24px}
+  .bubble:nth-child(10){--mx:84%;--my:32%;--mw:72px;--mh:24px}
   .bubble-bars i{height:4px}
   .bubble-bars{gap:4px}
 }
