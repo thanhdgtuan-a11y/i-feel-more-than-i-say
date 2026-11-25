@@ -142,6 +142,43 @@
     </footer>
   </div>
 
+  <!-- Feedback widget (shown by app.js once a form is configured) -->
+  <div class="fb" id="fb" hidden>
+    <div class="fb-backdrop" id="fb-backdrop"></div>
+    <section class="fb-panel" id="fb-panel" role="dialog" aria-modal="false" aria-labelledby="fb-title" aria-hidden="true" inert>
+      <button type="button" class="fb-handle" id="fb-handle" aria-label="Close feedback"><i></i></button>
+      <div class="fb-view fb-form">
+        <h2 class="fb-title" id="fb-title">How did this feel?</h2>
+        <p class="fb-sub">What worked? What didn’t? No name needed.</p>
+        <div class="fb-mood" role="group" aria-label="How did it feel?">
+          <button type="button" class="fb-face" data-v="1" aria-pressed="false" aria-label="Not great">😞</button>
+          <button type="button" class="fb-face" data-v="2" aria-pressed="false" aria-label="Not so good">🙁</button>
+          <button type="button" class="fb-face" data-v="3" aria-pressed="false" aria-label="Okay">😐</button>
+          <button type="button" class="fb-face" data-v="4" aria-pressed="false" aria-label="Good">🙂</button>
+          <button type="button" class="fb-face" data-v="5" aria-pressed="false" aria-label="Loved it">😍</button>
+        </div>
+        <div class="fb-moodlab" aria-hidden="true"><span>Not great</span><span>Loved it</span></div>
+        <div class="fb-field">
+          <textarea id="fb-text" maxlength="500" placeholder="Write your feedback…" aria-label="Your feedback"></textarea>
+          <span class="fb-count" id="fb-count" aria-hidden="true">0 / 500</span>
+        </div>
+        <button type="button" class="fb-send" id="fb-send">Send feedback</button>
+        <p class="fb-note">Sent anonymously · only used for this project</p>
+      </div>
+      <div class="fb-view fb-done">
+        <div class="fb-check" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <h2 class="fb-title fb-title-lg">Thank you.</h2>
+        <p class="fb-sub">Your feedback was sent anonymously. It helps us make the next version better.</p>
+        <button type="button" class="fb-close" id="fb-close">Close</button>
+      </div>
+    </section>
+    <button type="button" class="fb-toggle" id="fb-toggle" aria-expanded="false" aria-controls="fb-panel">
+      <svg class="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-6l-4.5 3.5V17H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+      <svg class="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      <span class="fb-toggle-label">Feedback</span>
+    </button>
+  </div>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <dialog id="lightbox" aria-label="Poster enlarged">

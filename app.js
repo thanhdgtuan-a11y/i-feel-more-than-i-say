@@ -179,6 +179,7 @@
     if (fx) { A.remove(wrap); wrap.style.opacity = 1; wrap.style.transform = 'none'; }
     const r0 = rectIn(wrap, st);
     st.classList.toggle('is-flipped', toBack);             // CSS now holds the target geometry
+    document.documentElement.classList.toggle('is-writing', !!$('.stage.is-flipped'));   // hides the feedback button on phones while writing
     const r1 = rectIn(wrap, st);
     front.inert = toBack; back.inert = !toBack; acts.inert = !toBack;
     const finish = () => {
@@ -302,6 +303,54 @@
   fixCaptionHeight();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fixCaptionHeight);
   let capT; addEventListener('resize', () => { clearTimeout(capT); capT = setTimeout(fixCaptionHeight, 120); });
+
+  /* ================= feedback widget ================= */
+  // Floating "Feedback" button (bottom-right) → panel (bottom sheet on phones).
+  // Uses the same Google Form as "Send your think"; rows are marked "FEEDBACK · mood n/5" in the Situation column.
+  const fbForm = (window.SITE || {}).form, fb = $('#fb');
+  if (fb && fbForm && fbForm.action) {
+    fb.hidden = false;
+    const toggle = $('#fb-toggle'), panel = $('#fb-panel'), text = $('#fb-text'), count = $('#fb-count'), send = $('#fb-send');
+    const faces = $$('.fb-face', fb), label = $('.fb-toggle-label', fb);
+    const finePointer = matchMedia('(pointer: fine)').matches;
+    let mood = 0, isOpen = false, sending = false;
+
+    const setMood = (v) => { mood = v; faces.forEach((f) => f.setAttribute('aria-pressed', String(+f.dataset.v === v))); };
+    const setOpen = (v, returnFocus) => {
+      isOpen = v;
+      fb.classList.toggle('is-open', v);
+      panel.inert = !v; panel.setAttribute('aria-hidden', String(!v));
+      toggle.setAttribute('aria-expanded', String(v));
+      label.textContent = v ? 'Close' : 'Feedback';
+      if (v) { panel.classList.remove('is-sent'); if (finePointer) setTimeout(() => faces[3].focus({ preventScroll: true }), 60); }
+      else if (returnFocus) toggle.focus({ preventScroll: true });
+    };
+    const resetForm = () => { setMood(0); text.value = ''; count.textContent = `0 / ${text.maxLength}`; };
+
+    setTimeout(() => fb.classList.add('is-ready'), 1200);          // fade the button in after the page settles
+    toggle.addEventListener('click', () => setOpen(!isOpen, true));
+    $('#fb-handle').addEventListener('click', () => setOpen(false, true));
+    $('#fb-close').addEventListener('click', () => { setOpen(false, true); resetForm(); });
+    $('#fb-backdrop').addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen) setOpen(false, true); });
+    document.addEventListener('pointerdown', (e) => { if (isOpen && !e.target.closest('#fb-panel, #fb-toggle')) setOpen(false); });
+    faces.forEach((f) => f.addEventListener('click', () => setMood(mood === +f.dataset.v ? 0 : +f.dataset.v)));
+    text.addEventListener('input', () => { count.textContent = `${text.value.length} / ${text.maxLength}`; });
+
+    send.addEventListener('click', () => {
+      const msg = text.value.trim();
+      if (!mood && !msg) { toast('Pick a feeling or write a few words first.'); return; }
+      if (sending) return;
+      sending = true; send.disabled = true; send.textContent = 'Sending…';
+      const body = new URLSearchParams();
+      body.set(fbForm.fields.text, msg || '(no message)');
+      if (fbForm.fields.situation) body.set(fbForm.fields.situation, `FEEDBACK · mood ${mood ? mood + '/5' : '—'}`);
+      fetch(fbForm.action, { method: 'POST', mode: 'no-cors', body })
+        .then(() => { panel.classList.add('is-sent'); resetForm(); $('#fb-close').focus({ preventScroll: true }); })
+        .catch(() => toast('Could not send — check your connection and try again.'))
+        .finally(() => { sending = false; send.disabled = false; send.textContent = 'Send feedback'; });
+    });
+  }
 
   /* ================= nav ================= */
   const nav = $('#nav');
